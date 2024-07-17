@@ -3,59 +3,62 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import morgan from 'morgan';
 
+import itemsRoutes from './src/routes/item.routes.js';
 
 import { Connection } from './src/database/index.js';
 
 dotenv.config();
 
 const App = {
-    main: async () => {
-        const app = express();
-        const PORT = process.env.PORT || 3000;
+	main: async () => {
+		const app = express();
+		const PORT = process.env.PORT || 3000;
 
-        // Middlewares
-        app.use(cors());
-        app.use(express.json());
-        app.use(morgan('dev'));
+		// Middlewares
+		app.use(cors());
+		app.use(express.json());
+		app.use(morgan('dev'));
 
-        // Rutas
-        app.use('/', (req, res) => {
-            res.send(`¡API!`);
-        });
+		// Routes
+		app.use('/item', itemsRoutes);
 
-        async function connectDatabase() {
-            try {
-                await Connection.authenticate();
-                console.log('[OK] Conexión establecida con la base de datos');
-            } catch (error) {
-                console.error(
-                    '[ERROR] No se pudo conectar con la base de datos ',
-                    error,
-                );
-            }
-        }
+		app.use('/', (req, res) => {
+			res.send(`¡API!`);
+		});
 
-        function handleError(err, req, res, next) {
-            console.error(err);
-            res.status(500).json({ error: 'Error interno del servidor' });
-        }
+		async function connectDatabase() {
+			try {
+				await Connection.authenticate();
 
-        // Middleware para manejo de errores
-        app.use((err, req, res, next) => {
-            console.error(err);
-            res.status(500).send('[ERROR] Ocurrió un error en el servidor');
-        });
+				// await Connection.sync({ alter: true });
 
-        async function startServer() {
-            await connectDatabase();
-            app.use(handleError);
-            app.listen(PORT, () => {
-                console.log(`[API] se ejecuta en http://localhost:${PORT}`);
-            });
-        }
+				console.log('[OK] database connection successfully');
+			} catch (error) {
+				console.error('[ERROR] could not connect to the database ', error);
+			}
+		}
 
-        startServer();
-    },
+		function handleError(err, req, res, next) {
+			console.error(err);
+			res.status(500).json({ error: 'internal server error' });
+		}
+
+		// Middleware
+		app.use((err, req, res, next) => {
+			console.error(err);
+			res.status(500).send('[ERROR] an error occurred in the server');
+		});
+
+		async function startServer() {
+			await connectDatabase();
+			app.use(handleError);
+			app.listen(PORT, () => {
+				console.log(`[API] server on http://localhost:${PORT}`);
+			});
+		}
+
+		startServer();
+	},
 };
 
 export default App;

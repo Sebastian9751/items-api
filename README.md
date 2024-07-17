@@ -5,12 +5,12 @@
 ```bash
 $ git clone https://github.com/Sebastian9751/items-api-test.git
 ```
-### 2. Credentials
+### 2. Dependencies
 ```bash
 # To install dependencies, run this command in the root:
 $ npm install
 ```
-### 3. Credenciales
+### 3. Credentials
 
 ```bash
 # Before running the server, make sure to create your .env file
@@ -20,7 +20,7 @@ DB_PASSWORD=
 DB_HOST=
 DB_NAME=
 DB_PORT=
-PORT=3000
+SECRET_KEY=
 
 ```
 ## Linter

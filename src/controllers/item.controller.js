@@ -1,6 +1,6 @@
 import { ItemModel } from '../models/item.model.js';
 
-const finAll = async (req, res) => {
+const findAll = async (req, res) => {
 	try {
 		const data = await ItemModel.findAll();
 
@@ -61,7 +61,7 @@ const update = async (req, res) => {
 };
 
 export const methods = {
-	finAll,
+	findAll,
 	create,
 	update,
 };

@@ -6,7 +6,7 @@ import * as schemas from '../schemas/item/index.js';
 
 const router = Router();
 
-router.get('/', validateHeaders, methods.finAll);
+router.get('/', validateHeaders, methods.findAll);
 
 router.post(
     '/create',

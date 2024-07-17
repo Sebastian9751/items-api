@@ -30,7 +30,7 @@ const App = {
 			try {
 				await Connection.authenticate();
 
-				// await Connection.sync({ alter: true });
+				await Connection.sync({ alter: true });
 
 				console.log('[OK] database connection successfully');
 			} catch (error) {

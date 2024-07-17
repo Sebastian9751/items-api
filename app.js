@@ -23,7 +23,7 @@ const App = {
 		app.use('/item', itemsRoutes);
 
 		app.use('/', (req, res) => {
-			res.send(`¡API!`);
+			res.send(`!Hello World!`);
 		});
 
 		async function connectDatabase() {
@@ -43,7 +43,6 @@ const App = {
 			res.status(500).json({ error: 'internal server error' });
 		}
 
-		// Middleware
 		app.use((err, req, res, next) => {
 			console.error(err);
 			res.status(500).send('[ERROR] an error occurred in the server');

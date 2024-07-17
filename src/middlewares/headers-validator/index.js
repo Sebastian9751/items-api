@@ -28,6 +28,8 @@ export const validateHeaders = (req, res, next) => {
 		.update(CURRENT_URL + DATE)
 		.digest('hex');
 
+		console.log(encryptedData);
+
 	if (SIGNATURE !== encryptedData) {
 		return res.status(401).json({ error: 'Invalid signature' });
 	}

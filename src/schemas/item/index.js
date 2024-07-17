@@ -1,31 +1,28 @@
-import { body, param } from 'express-validator';
+import Joi from 'joi';
 
-export const createItemSchema = () => {
-	return [
-		body('name')
-			.notEmpty()
-			.withMessage('Name is required')
-			.isString()
-			.withMessage('Name must be a string'),
 
-		body('price')
-			.notEmpty()
-			.withMessage('Price is required')
-			.isNumeric()
-			.withMessage('Price must be a number'),
-	];
-};
+export const createItemSchema = Joi.object({
+  name: Joi.string().required().messages({
+    'any.required': 'Name is required',
+    'string.base': 'Name must be a string',
+  }),
+  price: Joi.number().required().messages({
+    'any.required': 'Price is required',
+    'number.base': 'Price must be a number',
+  }),
+});
 
-export const updateItemSchema = () => {
-	return [
-		param('id')
-			.notEmpty()
-			.withMessage('Item ID is required')
-			.isInt()
-			.withMessage('Item ID must be an integer'),
 
-		body('name').optional().isString().withMessage('Name must be a string'),
+export const updateItemSchema = Joi.object({
 
-		body('price').optional().isNumeric().withMessage('Price must be a number'),
-	];
-};
+  name: Joi.string().required().messages({
+    'any.required': 'Name is required',
+    'string.base': 'Name must be a string',
+  }),
+  price: Joi.number().required().messages({
+    'any.required': 'Price is required',
+    'number.base': 'Price must be a number',
+  }),
+});
+
+

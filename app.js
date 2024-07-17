@@ -23,7 +23,7 @@ const App = {
 		app.use('/item', itemsRoutes);
 
 		app.use('/', (req, res) => {
-			res.send(`!Hello World!`);
+			res.status(400).json({ error: 'request not found' });
 		});
 
 		async function connectDatabase() {

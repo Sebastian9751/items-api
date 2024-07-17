@@ -7,6 +7,6 @@ router.get('/', validateHeaders, methods.finAll);
 
 router.post('/create', methods.create);
 
-router.put('/update', methods.update);
+router.put('/update/:id', methods.update);
 
 export default router;

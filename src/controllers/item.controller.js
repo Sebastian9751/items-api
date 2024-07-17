@@ -34,8 +34,10 @@ const create = async (req, res) => {
 const update = async (req, res) => {
 	try {
 		const data = req.body;
+		const idItem = req.params.id;
+
 		const dataFound = await ItemModel.findOne({
-			where: { id_item: data.id_item },
+			where: { id_item: idItem },
 		});
 		const nameFound = await ItemModel.findOne({ where: { name: data.name } });
 
@@ -43,13 +45,13 @@ const update = async (req, res) => {
 			return res.status(404).json({ error: `Item not found` });
 		}
 
-		if (nameFound && nameFound.dataValues.id_item !== data.id_item) {
+		if (nameFound && nameFound.dataValues.id_item != idItem) {
 			return res
 				.status(209)
 				.json({ error: `The name '${data.name}' is alredy use` });
 		}
 
-		await ItemModel.update(data, { where: { id_item: data.id_item } });
+		await ItemModel.update(data, { where: { id_item: idItem } });
 
 		return res.status(200).json({ message: 'Item has been updated' });
 	} catch (error) {

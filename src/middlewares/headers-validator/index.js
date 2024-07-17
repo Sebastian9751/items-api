@@ -1,26 +1,36 @@
+import crypto from 'crypto';
+import { SECRET_KEY } from '../../utils/constants/index.js';
+
 export const validateHeaders = (req, res, next) => {
-	const { headers } = req;
+	const {
+		'x-date': DATE,
+		'x-signature': SIGNATURE,
+		'x-authentication': AUTHENTICATION,
+	} = req.headers;
+	const CURRENT_URL = req.originalUrl;
 
-	const currentDate = new Date().toISOString();
-
-	if (!headers['x-date']) {
+	if (!DATE) {
 		return res.status(400).json({ error: 'Header x-date is required' });
 	}
 
-	if (!headers['x-signature']) {
+	if (!SIGNATURE) {
 		return res.status(400).json({ error: 'Header x-signature is required' });
 	}
 
-	if (!headers['x-authentication']) {
+	if (!AUTHENTICATION) {
 		return res
 			.status(400)
 			.json({ error: 'Header x-authentication is required' });
 	}
 
-	console.log(headers['x-date']);
-	console.log(headers['x-signature']);
-	console.log(headers['x-authentication']);
-	console.log(currentDate);
+	const encryptedData = crypto
+		.createHmac('sha256', SECRET_KEY)
+		.update(CURRENT_URL + DATE)
+		.digest('hex');
+
+	if (SIGNATURE !== encryptedData) {
+		return res.status(401).json({ error: 'Invalid signature' });
+	}
 
 	next();
 };

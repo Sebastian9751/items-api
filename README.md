@@ -88,5 +88,13 @@ $ npm run dev
 └── index.js
 ```
 
+## Swagger
 
+#### Swagger is a tool used for API documentation and testing
+
+#### Once the application is running, you can access Swagger at the following URL:
+
+```bash
+http://localhost:3000/docs
+```
 

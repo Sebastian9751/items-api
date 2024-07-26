@@ -4,8 +4,12 @@ import cors from 'cors';
 import morgan from 'morgan';
 
 import itemsRoutes from './src/routes/item.routes.js';
-
 import { Connection } from './src/database/index.js';
+
+// Swagger
+import swaggerUI from 'swagger-ui-express';
+import swaggerJsDoc from 'swagger-jsdoc';
+import { options } from './swagger.options.js';
 
 dotenv.config();
 
@@ -18,6 +22,10 @@ const App = {
 		app.use(cors());
 		app.use(express.json());
 		app.use(morgan('dev'));
+
+		// Swagger
+		const specs = swaggerJsDoc(options);
+		app.use('/docs', swaggerUI.serve, swaggerUI.setup(specs));
 
 		// Routes
 		app.use('/item', itemsRoutes);

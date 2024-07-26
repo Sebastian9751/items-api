@@ -2,7 +2,11 @@ import { ItemModel } from '../models/item.model.js';
 
 const findAll = async (req, res) => {
 	try {
-		const data = await ItemModel.findAll();
+		const data = await ItemModel.findAll({
+			order: [
+				['id_item', 'DESC'], 
+			],
+		});
 
 		return res.status(200).json({ items: data });
 	} catch (error) {

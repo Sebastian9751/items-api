@@ -7,7 +7,8 @@ export const validateHeaders = (req, res, next) => {
 		'x-signature': SIGNATURE,
 		'x-authentication': AUTHENTICATION,
 	} = req.headers;
-	const CURRENT_URL = req.originalUrl;
+
+	const CURRENT_URL = req.originalUrl.replace(/\d+/g, '');
 
 	if (!DATE) {
 		return res.status(400).json({ error: 'Header x-date is required' });
@@ -28,7 +29,7 @@ export const validateHeaders = (req, res, next) => {
 		.update(CURRENT_URL + DATE)
 		.digest('hex');
 
-		console.log(encryptedData);
+	console.log(encryptedData);
 
 	if (SIGNATURE !== encryptedData) {
 		return res.status(401).json({ error: 'Invalid signature' });

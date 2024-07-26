@@ -97,4 +97,5 @@ $ npm run dev
 ```bash
 http://localhost:3000/docs
 ```
+![imagen](https://github.com/user-attachments/assets/4ae25931-22f7-481d-990c-87bea719fa3f)
 

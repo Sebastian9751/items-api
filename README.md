@@ -29,7 +29,7 @@ SECRET_KEY=
 
 #### Ensure that Docker is installed on your machine.
 
-#### Execute the following command to create a Docker container for SQL server:
+#### Execute the following command to create a Docker container for MySQL:
 
 ```bash
 # This will create a Docker container for the MySQL server.

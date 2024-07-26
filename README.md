@@ -23,6 +23,21 @@ DB_PORT=
 SECRET_KEY=
 
 ```
+## Docker (recomended)
+
+#### Using docker-compose.yml
+
+#### Ensure that Docker is installed on your machine.
+
+#### Execute the following command to create a Docker container for SQL server:
+
+```bash
+# This will create a Docker container for the MySQL server.
+
+$ docker-compose up
+```
+
+
 ## Linter
 #### This project has eslint and prettier rules configured. It is recommended to install the respective extensions in Visual Studio Code:
 
@@ -63,6 +78,8 @@ $ npm run dev
 │   └───utils
 │
 ├── .env
+│
+├── docker-compose.yml        
 │
 ├── README
 │
